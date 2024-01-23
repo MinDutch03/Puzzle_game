@@ -38,6 +38,8 @@ public class Puzzle extends JFrame implements MouseListener
 	private JButton resume;
 	private JButton exit;
 	private boolean gameInPlay = false;
+	private JButton original; // New button to show the original image
+
 	public Puzzle()
 	{
 		setTitle("Puzzle");
@@ -85,6 +87,16 @@ public class Puzzle extends JFrame implements MouseListener
 		panel.add(pause);
 		pause.setEnabled(false);
 
+		// Original button
+		original = new JButton("View Original");
+		original.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				showOriginal();
+			}
+		});
+		panel.add(original);
+		original.setEnabled(true);
+
 		// Exit button
 		exit = new JButton("Exit");
 		exit.addActionListener(new ActionListener() {
@@ -95,7 +107,7 @@ public class Puzzle extends JFrame implements MouseListener
 		panel.add(exit);
 
 		String[] pieces = { "4", "9", "16", "25", "36", "49", "64", "81", "100" };
-		choices = new JComboBox<String>(pieces);	// Java 7 and later
+		choices = new JComboBox<String>(pieces);
 		choices.setSelectedIndex(4);
 		choices.addActionListener(new ActionListener()
 			{	public void actionPerformed(ActionEvent e)
@@ -211,9 +223,9 @@ public class Puzzle extends JFrame implements MouseListener
 				addComponent(pic, row, col);
 				pic.setPosition(row, col);				// set the new location in the puzzle
 			}
-
 		choices.setEnabled(false);
 		pause.setEnabled(false); // Enable the pause button
+		original.setEnabled(true);
 
 		play.setEnabled(false); // Disable the play button
 		exit.setEnabled(true); // Enable the exit button
@@ -221,7 +233,7 @@ public class Puzzle extends JFrame implements MouseListener
 		((JButton)e.getSource()).setEnabled(false);				// deactivates the play button
 
 		pause.setEnabled(true); // Enable the pause button
-
+		original.setEnabled(false);
 		validate();
 	}
 
@@ -242,6 +254,11 @@ public class Puzzle extends JFrame implements MouseListener
 		exit.setEnabled(true);
 	}
 
+	private void showOriginal() {
+		picturePanel.removeAll(); // Remove all puzzle pieces
+		addComponent(new JLabel(new ImageIcon(image)), 0, 0); // Add the original image
+		validate(); // Update the display
+	}
 	private void exitGame() {
 		int confirm = JOptionPane.showConfirmDialog(this, "Are you sure to exit the game?", "Exit Game",
 				JOptionPane.YES_NO_OPTION);
