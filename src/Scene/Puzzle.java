@@ -37,8 +37,10 @@ public class Puzzle extends JFrame implements MouseListener
 	private JButton pause;
 	private JButton resume;
 	private JButton exit;
-	private boolean gameInPlay = false;
 	private JButton original; // New button to show the original image
+	private Stack<ArrayList<Picture>> undoStack = new Stack<>();
+	private JButton undoButton;
+
 
 	public Puzzle()
 	{
@@ -86,6 +88,16 @@ public class Puzzle extends JFrame implements MouseListener
 		});
 		panel.add(pause);
 		pause.setEnabled(false);
+
+		// Undo button
+		undoButton = new JButton("Undo");
+		undoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				undo();
+			}
+		});
+		panel.add(undoButton);
+		undoButton.setEnabled(false); // Initially, the undo button is disabled
 
 		// Original button
 		original = new JButton("View Original");
@@ -141,7 +153,6 @@ public class Puzzle extends JFrame implements MouseListener
 				hat.add(temp);						// putting the pieces into a hat
 				addComponent(temp, row, col);				// adding the pieces to the picture panel
 			}
-
 		pack();
 		validate();
 	}
@@ -209,6 +220,13 @@ public class Puzzle extends JFrame implements MouseListener
 
 	private void mixUp(ActionEvent e)
 	{
+		// Save the current puzzle state for undo
+		ArrayList<Picture> currentPuzzleState = new ArrayList<>(hat.size());
+		for (Picture p : hat) {
+			currentPuzzleState.add(new Picture(p.getImageRow(), p.getImageCol()));
+		}
+		undoStack.push(currentPuzzleState);
+
 		picturePanel.removeAll();
 		pieces = size * size;
 
@@ -223,9 +241,10 @@ public class Puzzle extends JFrame implements MouseListener
 				addComponent(pic, row, col);
 				pic.setPosition(row, col);				// set the new location in the puzzle
 			}
+
 		choices.setEnabled(false);
-		pause.setEnabled(false); // Enable the pause button
-		original.setEnabled(true);
+		pause.setEnabled(false); // Disable the pause button
+		original.setEnabled(true); // Enable the 'View Original' button.
 
 		play.setEnabled(false); // Disable the play button
 		exit.setEnabled(true); // Enable the exit button
@@ -234,6 +253,8 @@ public class Puzzle extends JFrame implements MouseListener
 
 		pause.setEnabled(true); // Enable the pause button
 		original.setEnabled(false);
+		undoButton.setEnabled(true);
+
 		validate();
 	}
 
@@ -252,6 +273,22 @@ public class Puzzle extends JFrame implements MouseListener
 		pause.setEnabled(true);
 		resume.setEnabled(false);
 		exit.setEnabled(true);
+	}
+	private void undo() {
+		if (!undoStack.isEmpty()) {
+			ArrayList<Picture> previousPuzzleState = undoStack.pop();
+			hat.clear();
+			picturePanel.removeAll();
+
+			for (int i = 0; i < previousPuzzleState.size(); i++) {
+				Picture p = previousPuzzleState.get(i);
+				hat.add(p);
+				p.addMouseListener(this);
+				addComponent(p, p.getRow(), p.getCol());
+			}
+
+			validate();
+		}
 	}
 
 	private void showOriginal() {
@@ -277,7 +314,7 @@ public class Puzzle extends JFrame implements MouseListener
 
 
 
-	public boolean checkDone()
+	public boolean checkSolution()
 	{
 		for (Picture p : hat)
 			if (p.getRow() != p.getImageRow() || p.getCol() != p.getImageCol())
@@ -304,6 +341,7 @@ public class Puzzle extends JFrame implements MouseListener
 
 	public void mousePressed(MouseEvent e)
 	{
+
 		Picture	temp = (Picture)e.getSource();					// get the clicked puzzle piece
 
 		if (first == null)							// select the clicked puzzle piece
@@ -337,12 +375,13 @@ public class Puzzle extends JFrame implements MouseListener
 		addComponent(second, row1, col1);
 
 		first = second = null;							// get ready for the next swap
-
 		validate();								// update the display
 
-		if (checkDone())
+		if (checkSolution()) {
 			JOptionPane.showMessageDialog(this, "Puzzle Solved", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
+
 
 
 	public void mouseClicked(MouseEvent e){}
