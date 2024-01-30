@@ -13,6 +13,9 @@ public class Main extends Application {
 		try {
 			SceneManager manager = new SceneManager();
 			primaryStage = manager.getMainStage();
+			
+	
+			
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

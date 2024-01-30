@@ -63,9 +63,9 @@ public class Puzzle extends JFrame implements MouseListener
 		add(picturePanel);							// and the panel to the center of the frame
 
 		addWindowListener(new WindowAdapter()					// make the window closable
-			{	public void windowClosing(WindowEvent event)
-				{ System.exit(0); }
-			} );
+		{	public void windowClosing(WindowEvent event)
+		{ System.exit(0); }
+		} );
 
 		JPanel panel = new JPanel();						// make a home for the play button
 		add(panel, BorderLayout.SOUTH);						// set up the button
@@ -73,9 +73,9 @@ public class Puzzle extends JFrame implements MouseListener
 		// Play button
 		play = new JButton("Play");
 		play.addActionListener(new ActionListener()
-			{	public void actionPerformed(ActionEvent event)
-				{ mixUp(event); }
-			} );
+		{	public void actionPerformed(ActionEvent event)
+		{ mixUp(event); }
+		} );
 		play.setToolTipText("Press play to scramble the image");
 		panel.add(play);
 
@@ -122,9 +122,9 @@ public class Puzzle extends JFrame implements MouseListener
 		choices = new JComboBox<String>(pieces);
 		choices.setSelectedIndex(4);
 		choices.addActionListener(new ActionListener()
-			{	public void actionPerformed(ActionEvent e)
-				{ getSize(e); }
-			} );
+		{	public void actionPerformed(ActionEvent e)
+		{ getSize(e); }
+		} );
 		panel.add(choices);
 
 		makePicture();
@@ -168,24 +168,24 @@ public class Puzzle extends JFrame implements MouseListener
 
 		fc.setAccessory(new ImagePreview(fc));
 		fc.addChoosableFileFilter(new javax.swing.filechooser.FileFilter()
-				{
-					public boolean accept(File f)
-					{
-						if (f.isDirectory()) return true;
+		{
+			public boolean accept(File f)
+			{
+				if (f.isDirectory()) return true;
 
-						String name = f.getName().toLowerCase();
-						if (name.endsWith("gif") || name.endsWith(".jpg") ||
-							name.endsWith("png") || name.endsWith("tif")){
-							return true;
-						}
-						else{
-							return false;
-						}
-					}
-					public String getDescription() {
-						return "Image files";
-					}
-				});
+				String name = f.getName().toLowerCase();
+				if (name.endsWith("gif") || name.endsWith(".jpg") ||
+						name.endsWith("png") || name.endsWith("tif")){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+			public String getDescription() {
+				return "Image files";
+			}
+		});
 
 
 		while (fc.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
@@ -477,6 +477,7 @@ public class Puzzle extends JFrame implements MouseListener
 
 	public static void main(String[] args)
 	{
+
 		new Puzzle();
 	}
 }

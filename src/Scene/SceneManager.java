@@ -1,8 +1,12 @@
 package Scene;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -48,7 +52,7 @@ public class SceneManager {
 	private final static int NEW_BUTTON_START_Y =340;
 	
 	private PuzzleSubscene sceneToHide;
-	
+		
 	List<PuzzleButton> buttonlist;
 	
 	public SceneManager() {
@@ -59,17 +63,22 @@ public class SceneManager {
 		mainStage = new Stage();
 		mainStage.setScene(mainScene);
 		
+		gameMusic music = new gameMusic("/Scene/resource/periwinkle.wav");
+		
 		createSubscene();
 		createButton();
 		createBackground();
 		createTitle();
 		
+		
 //		PuzzleSubscene subscene = new PuzzleSubscene();
 //		subscene.setLayoutX(200);
 //		subscene.setLayoutY(100);
 //		mainPane.getChildren().add(subscene);
+		music.play();
+		music.loop();
 	}
-	
+
 	private void showSubscene(PuzzleSubscene Subscene) {
 		if (sceneToHide != null) {
 			sceneToHide.moveSubscene();
@@ -77,6 +86,7 @@ public class SceneManager {
 		Subscene.moveSubscene();
 		sceneToHide = Subscene;
 	}
+	
 	
 	public Stage getMainStage() {
 		// Disable full-screen mode for the mainPane
@@ -116,8 +126,8 @@ public class SceneManager {
 		browseImage.setLayoutY(25);
 		
 		loadImagescene.getPane().getChildren().add(browseImage);
-		loadImagescene.getPane().getChildren().add(createSheepGameButton());
-		loadImagescene.getPane().getChildren().add(createCelticButton());
+//		loadImagescene.getPane().getChildren().add(createSheepGameButton());
+//		loadImagescene.getPane().getChildren().add(createCelticButton());
 	}
 
 	private void createButton() {
@@ -152,7 +162,7 @@ public class SceneManager {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				showSubscene(loadImagescene);
+				Puzzle puzzle = new Puzzle();
 			}
 			
 		});
@@ -321,7 +331,7 @@ public class SceneManager {
 		
 	}
 	private GameButton createSheepGameButton() {
-		GameButton game1Button = new GameButton("Sheep");
+		GameButton game1Button = new GameButton("Preload");
 		game1Button.setLayoutX(100);
 		game1Button.setLayoutY(180);
 		
@@ -343,7 +353,7 @@ public class SceneManager {
 	}
 	
 	private GameButton createCelticButton() {
-		GameButton game2Button = new GameButton("Celtic");
+		GameButton game2Button = new GameButton("Browse");
 		game2Button.setLayoutX(330);
 		game2Button.setLayoutY(180);
 		
@@ -398,4 +408,5 @@ public class SceneManager {
 		
 		mainPane.getChildren().add(title);
 	}
+	
 }
