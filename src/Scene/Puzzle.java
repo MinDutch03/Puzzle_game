@@ -38,8 +38,6 @@ public class Puzzle extends JFrame implements MouseListener
 	private JButton resume;
 	private JButton exit;
 	private JButton original; // New button to show the original image
-	private Stack<ArrayList<Picture>> undoStack = new Stack<>();
-	private JButton undoButton;
 
 
 	public Puzzle()
@@ -89,15 +87,6 @@ public class Puzzle extends JFrame implements MouseListener
 		panel.add(pause);
 		pause.setEnabled(false);
 
-		// Undo button
-		undoButton = new JButton("Undo");
-		undoButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				undo();
-			}
-		});
-		panel.add(undoButton);
-		undoButton.setEnabled(false); // Initially, the undo button is disabled
 
 		// Original button
 		original = new JButton("View Original");
@@ -220,13 +209,6 @@ public class Puzzle extends JFrame implements MouseListener
 
 	private void mixUp(ActionEvent e)
 	{
-		// Save the current puzzle state for undo
-		ArrayList<Picture> currentPuzzleState = new ArrayList<>(hat.size());
-		for (Picture p : hat) {
-			currentPuzzleState.add(new Picture(p.getImageRow(), p.getImageCol()));
-		}
-		undoStack.push(currentPuzzleState);
-
 		picturePanel.removeAll();
 		pieces = size * size;
 
@@ -253,7 +235,6 @@ public class Puzzle extends JFrame implements MouseListener
 
 		pause.setEnabled(true); // Enable the pause button
 		original.setEnabled(false);
-		undoButton.setEnabled(true);
 
 		validate();
 	}
@@ -274,22 +255,7 @@ public class Puzzle extends JFrame implements MouseListener
 		resume.setEnabled(false);
 		exit.setEnabled(true);
 	}
-	private void undo() {
-		if (!undoStack.isEmpty()) {
-			ArrayList<Picture> previousPuzzleState = undoStack.pop();
-			hat.clear();
-			picturePanel.removeAll();
 
-			for (int i = 0; i < previousPuzzleState.size(); i++) {
-				Picture p = previousPuzzleState.get(i);
-				hat.add(p);
-				p.addMouseListener(this);
-				addComponent(p, p.getRow(), p.getCol());
-			}
-
-			validate();
-		}
-	}
 
 	private void showOriginal() {
 		picturePanel.removeAll(); // Remove all puzzle pieces
@@ -352,7 +318,6 @@ public class Puzzle extends JFrame implements MouseListener
 		}
 		else if (temp == first)							// deselect the clicked puzzple piece
 		{
-			first.setRotationAngle((first.getRotationAngle() + 90) % 360);  // rotate the piece if clicked again
 			return;
 		}
 
@@ -403,8 +368,6 @@ public class Puzzle extends JFrame implements MouseListener
 		private	int	imageCol;
 		private	int	col;							// current position of this piece
 		private	int	row;
-		private int rotationAngle;  // new variable to store the rotation angle
-
 		public Picture(int imageRow, int imageCol)
 		{
 			row = this.imageRow = imageRow;
@@ -412,17 +375,9 @@ public class Puzzle extends JFrame implements MouseListener
 
 			setBorder(normal);
 			setPreferredSize(new Dimension(image.getWidth(this)/size, image.getHeight(this)/size));
-			rotationAngle = mixer.nextInt(4) * 90;  // initialize with a random rotation angle (0, 90, 180, or 270 degrees)
 		}
 
-		public void setRotationAngle(int angle) {
-			rotationAngle = angle;
-			repaint();  // repaint the component after updating the rotation angle
-		}
 
-		public int getRotationAngle() {
-			return rotationAngle;
-		}
 
 		public void setPosition(int row, int col)				// set position of piece in puzzle
 		{
@@ -461,8 +416,6 @@ public class Puzzle extends JFrame implements MouseListener
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			Graphics2D g2d = (Graphics2D) g;
-			g2d.rotate(Math.toRadians(rotationAngle), dWidth / 2, dHeight / 2);  // rotate around the center of the piece
 			g.drawImage(image, 0, 0, dWidth, dHeight, imageCol * dWidth, imageRow * dHeight,
 					(imageCol + 1) * dWidth, (imageRow + 1) * dHeight, this);
 
