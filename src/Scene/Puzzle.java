@@ -37,7 +37,11 @@ public class Puzzle extends JFrame implements MouseListener
 	private JButton pause;
 	private JButton resume;
 	private JButton exit;
-	private JButton original; // New button to show the original image
+	private boolean gameInPlay = false;
+
+	private Image originalImage;  // Store the original image
+
+
 
 
 	public Puzzle()
@@ -72,7 +76,7 @@ public class Puzzle extends JFrame implements MouseListener
 		play = new JButton("Play");
 		play.addActionListener(new ActionListener()
 		{	public void actionPerformed(ActionEvent event)
-		{ mixUp(event); }
+		{ playGame(event); }
 		} );
 		play.setToolTipText("Press play to scramble the image");
 		panel.add(play);
@@ -87,17 +91,6 @@ public class Puzzle extends JFrame implements MouseListener
 		panel.add(pause);
 		pause.setEnabled(false);
 
-
-		// Original button
-		original = new JButton("View Original");
-		original.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
-				showOriginal();
-			}
-		});
-		panel.add(original);
-		original.setEnabled(true);
-
 		// Exit button
 		exit = new JButton("Exit");
 		exit.addActionListener(new ActionListener() {
@@ -108,7 +101,7 @@ public class Puzzle extends JFrame implements MouseListener
 		panel.add(exit);
 
 		String[] pieces = { "4", "9", "16", "25", "36", "49", "64", "81", "100" };
-		choices = new JComboBox<String>(pieces);
+		choices = new JComboBox<String>(pieces);	// Java 7 and later
 		choices.setSelectedIndex(4);
 		choices.addActionListener(new ActionListener()
 		{	public void actionPerformed(ActionEvent e)
@@ -123,8 +116,8 @@ public class Puzzle extends JFrame implements MouseListener
 				(screenSize.height - getHeight()) / 2);
 
 		setVisible(true);							// make the frame visible
-	}
 
+	}
 
 
 	private void makePicture()
@@ -142,6 +135,7 @@ public class Puzzle extends JFrame implements MouseListener
 				hat.add(temp);						// putting the pieces into a hat
 				addComponent(temp, row, col);				// adding the pieces to the picture panel
 			}
+
 		pack();
 		validate();
 	}
@@ -222,11 +216,11 @@ public class Puzzle extends JFrame implements MouseListener
 				pic.addMouseListener(this);				// make each piece a mouse listener
 				addComponent(pic, row, col);
 				pic.setPosition(row, col);				// set the new location in the puzzle
+				pic.setRotationAngle(mixer.nextInt(4) * 90);
 			}
 
 		choices.setEnabled(false);
-		pause.setEnabled(false); // Disable the pause button
-		original.setEnabled(true); // Enable the 'View Original' button.
+		pause.setEnabled(false); // Enable the pause button
 
 		play.setEnabled(false); // Disable the play button
 		exit.setEnabled(true); // Enable the exit button
@@ -234,9 +228,13 @@ public class Puzzle extends JFrame implements MouseListener
 		((JButton)e.getSource()).setEnabled(false);				// deactivates the play button
 
 		pause.setEnabled(true); // Enable the pause button
-		original.setEnabled(false);
 
 		validate();
+	}
+
+	private void playGame(ActionEvent event) {
+		// TODO Auto-generated method stub
+		mixUp(event);
 	}
 
 	private void pauseGame() {
@@ -256,12 +254,6 @@ public class Puzzle extends JFrame implements MouseListener
 		exit.setEnabled(true);
 	}
 
-
-	private void showOriginal() {
-		picturePanel.removeAll(); // Remove all puzzle pieces
-		addComponent(new JLabel(new ImageIcon(image)), 0, 0); // Add the original image
-		validate(); // Update the display
-	}
 	private void exitGame() {
 		int confirm = JOptionPane.showConfirmDialog(this, "Are you sure to exit the game?", "Exit Game",
 				JOptionPane.YES_NO_OPTION);
@@ -280,12 +272,16 @@ public class Puzzle extends JFrame implements MouseListener
 
 
 
-	public boolean checkSolution()
-	{
-		for (Picture p : hat)
-			if (p.getRow() != p.getImageRow() || p.getCol() != p.getImageCol())
-				return false;
-		return true;
+	public boolean checkDone() {
+		if (!gameInPlay) {
+			for (Picture p : hat) {
+				if (p.getRow() != p.getImageRow() || p.getCol() != p.getImageCol() || p.getRotationAngle() != 0) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;  // The game is in play, not solved yet
 	}
 
 
@@ -307,7 +303,6 @@ public class Puzzle extends JFrame implements MouseListener
 
 	public void mousePressed(MouseEvent e)
 	{
-
 		Picture	temp = (Picture)e.getSource();					// get the clicked puzzle piece
 
 		if (first == null)							// select the clicked puzzle piece
@@ -316,11 +311,12 @@ public class Puzzle extends JFrame implements MouseListener
 			first.setBorder(selected);
 			return;
 		}
-		else if (temp == first)							// deselect the clicked puzzple piece
+		else if (temp == first) // rotate the clicked puzzle piece
 		{
+			first.setRotationAngle((first.getRotationAngle() + 90) % 360);
+			first.repaint();
 			return;
 		}
-
 		second = temp;								// get the second puzzle piece
 
 		int row1 = first.getRow();						// get the positions of the clicked pieces
@@ -340,13 +336,12 @@ public class Puzzle extends JFrame implements MouseListener
 		addComponent(second, row1, col1);
 
 		first = second = null;							// get ready for the next swap
+
 		validate();								// update the display
 
-		if (checkSolution()) {
+		if (checkDone())
 			JOptionPane.showMessageDialog(this, "Puzzle Solved", "Game Over", JOptionPane.INFORMATION_MESSAGE);
-		}
 	}
-
 
 
 	public void mouseClicked(MouseEvent e){}
@@ -368,6 +363,8 @@ public class Puzzle extends JFrame implements MouseListener
 		private	int	imageCol;
 		private	int	col;							// current position of this piece
 		private	int	row;
+		private int rotationAngle;
+
 		public Picture(int imageRow, int imageCol)
 		{
 			row = this.imageRow = imageRow;
@@ -376,20 +373,20 @@ public class Puzzle extends JFrame implements MouseListener
 			setBorder(normal);
 			setPreferredSize(new Dimension(image.getWidth(this)/size, image.getHeight(this)/size));
 		}
-
+		public void setRotationAngle(int angle) {
+			rotationAngle = angle;
+			repaint();
+		}
+		public int getRotationAngle() {
+			return rotationAngle;
+		}
 
 
 		public void setPosition(int row, int col)				// set position of piece in puzzle
 		{
+
 			this.row = row;
 			this.col = col;
-			if (row == imageRow && col == imageCol)
-			{
-				MouseListener[] listeners = getMouseListeners();
-				removeMouseListener(listeners[0]);
-				pieces--;
-			}
-
 		}
 
 		public int getCol()
@@ -416,11 +413,14 @@ public class Puzzle extends JFrame implements MouseListener
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.rotate(Math.toRadians(rotationAngle), dWidth / 2, dHeight / 2); // rotate around the center of the piece
 			g.drawImage(image, 0, 0, dWidth, dHeight, imageCol * dWidth, imageRow * dHeight,
 					(imageCol + 1) * dWidth, (imageRow + 1) * dHeight, this);
 
 		}
 	}
+
 
 
 
@@ -430,8 +430,6 @@ public class Puzzle extends JFrame implements MouseListener
 
 	public static void main(String[] args)
 	{
-
 		new Puzzle();
 	}
 }
-
