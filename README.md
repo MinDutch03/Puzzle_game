@@ -15,8 +15,9 @@ A Final Project submission to Ms.Logofatu
 
 
 ### Installing
-
-* git clone https://github.com/MinDutch03/Puzzle_game.git
+```
+git clone https://github.com/MinDutch03/Puzzle_game.git
+```
 * Path Configuration: You can see instructions on many IDEs here: https://openjfx.io/openjfx-docs/#introduction 
 
 ### Executing program
