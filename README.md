@@ -23,6 +23,6 @@ A Final Project submission to Ms.Logofatu
 * How to run the program: Press "run" button to play.
 
 ## Authors
-Duc Nguyen Minh, https://github.com/MinDutch03 or nguyenminhduc890@gmail.com
-Huy Luong Duc
-Tue Lam Thanh
+* Duc Nguyen Minh, https://github.com/MinDutch03 or nguyenminhduc890@gmail.com
+* Huy Luong Duc
+* Tue Lam Thanh
