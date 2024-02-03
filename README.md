@@ -3,7 +3,7 @@
 
 ## Description
 
-A Final Project submission to Ms.Logofatu
+A Children-Puzzle Game
 
 ## Getting Started
 
