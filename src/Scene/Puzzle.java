@@ -272,7 +272,7 @@ public class Puzzle extends JFrame implements MouseListener
 
 
 
-	public boolean checkDone() {
+	public boolean checkSolution() {
 		if (!gameInPlay) {
 			for (Picture p : hat) {
 				if (p.getRow() != p.getImageRow() || p.getCol() != p.getImageCol() || p.getRotationAngle() != 0) {
@@ -339,7 +339,7 @@ public class Puzzle extends JFrame implements MouseListener
 
 		validate();								// update the display
 
-		if (checkDone())
+		if (checkSolution())
 			JOptionPane.showMessageDialog(this, "Puzzle Solved", "Game Over", JOptionPane.INFORMATION_MESSAGE);
 	}
 
