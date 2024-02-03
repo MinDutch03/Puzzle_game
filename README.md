@@ -27,3 +27,7 @@ git clone https://github.com/MinDutch03/Puzzle_game.git
 * Duc Nguyen Minh, nguyenminhduc890@gmail.com
 * Huy Luong Duc, dhluong2003@gmail.com
 * Tue Lam Thanh, lamthanhtue0111@gmail.com
+
+## Version 
+* Java JDK 21
+* JavFX 21.0.2
