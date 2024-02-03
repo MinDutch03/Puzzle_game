@@ -6,7 +6,7 @@
 A Children-Puzzle Game
 
 ## How to play
-* You can swap or rotate any pieces to match the original puzzle picture.
+You can swap or rotate any pieces to match the original puzzle picture.
 
 ## Getting Started
 
