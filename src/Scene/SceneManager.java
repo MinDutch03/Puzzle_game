@@ -223,6 +223,7 @@ public class SceneManager {
 //			
 //		});
 //	}
+
 	
 	private void createCreditsButton() {
 		// TODO Auto-generated method stub
@@ -267,7 +268,7 @@ public class SceneManager {
 //		link5 = new Hyperlink(link[5]);
 //				
 		VBox creditsBox = new VBox(10, credit0, credit1, credit2);
-//		
+//
 		creditsBox.setLayoutX(50);
 		creditsBox.setLayoutY(80);
 		creditscene.getPane().getChildren().addAll(credits, creditsBox);
