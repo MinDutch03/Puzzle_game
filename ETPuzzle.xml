@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>D:\Sample(1)\output\Sample.jar</jar>
+  <jar>D:\VGU\3rd_year\UAS\Java\Project\Puzzle_game\output\Sample.jar</jar>
   <outfile>D:\VGU\3rd_year\UAS\Java\Project\Puzzle_game\ETPuzzle.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>

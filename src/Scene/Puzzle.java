@@ -147,7 +147,7 @@ public class Puzzle extends JFrame implements MouseListener
 
 	private String getFileName()
 	{
-		File		current = new File("./src/Scene/resource/imageLoader/");
+		File		current = new File("D:\\Sample(1) - Copy\\image_puzzle");
 		JFileChooser	fc = new JFileChooser(current);
 
 		fc.setAccessory(new ImagePreview(fc));
