@@ -1,5 +1,5 @@
 package application;
-	
+
 import Scene.SceneManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -13,15 +13,15 @@ public class Main extends Application {
 		try {
 			SceneManager manager = new SceneManager();
 			primaryStage = manager.getMainStage();
-			
-	
-			
+
+
+
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
