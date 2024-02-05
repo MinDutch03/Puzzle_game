@@ -24,9 +24,8 @@ git clone https://github.com/MinDutch03/Puzzle_game.git
 * Path Configuration: You can see instructions on many IDEs here: https://openjfx.io/openjfx-docs/#introduction 
 
 ### Executing program
-* How to run the program:
-** Step 1: Locate to "./src/Scene/Puzzle.java"
-** Step 2: Press "Run" button
+* Step 1: Locate to "./src/Scene/Puzzle.java"
+* Step 2: Press "Run" button
 
 ## Authors
 * Duc Nguyen Minh, nguyenminhduc890@gmail.com
