@@ -25,7 +25,8 @@ git clone https://github.com/MinDutch03/Puzzle_game.git
 
 ### Executing program
 * Step 1: Locate to "./src/output/"
-* Step 2: Press "Run" button to run .jar file
+* Step 2: Edit Path Configuration.
+* Step 3: Press "Run" button to run .jar file.
 
 ## Authors
 * Duc Nguyen Minh, nguyenminhduc890@gmail.com
