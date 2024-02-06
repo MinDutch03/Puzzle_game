@@ -21,11 +21,11 @@ You can swap or rotate any pieces to match the original puzzle picture.
 ```
 git clone https://github.com/MinDutch03/Puzzle_game.git
 ```
-* Path Configuration: You can see instructions on many IDEs here: https://openjfx.io/openjfx-docs/#introduction 
-
+ 
 ### Executing program
-* Step 1: Download .exe file
-* Step 2: Open .exe file and play.
+* Step 1: 
+  Path Configuration: You can see instructions on many IDEs here: https://openjfx.io/openjfx-docs/#introduction
+* Step 2: run Sample.jar file
 
 ## Authors
 * Duc Nguyen Minh, nguyenminhduc890@gmail.com
