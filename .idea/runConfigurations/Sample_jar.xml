@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Sample.jar" type="JarApplication">
+    <option name="JAR_PATH" value="$PROJECT_DIR$/Sample.jar" />
+    <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\Java\openjfx-21.0.2_windows-x64_bin-sdk\javafx-sdk-21.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+    <option name="WORKING_DIRECTORY" value="D:\Sample(1)" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2" />
+  </configuration>
+</component>

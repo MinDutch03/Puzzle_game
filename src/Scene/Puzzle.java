@@ -8,6 +8,10 @@ import	javax.swing.*;
 import	javax.swing.border.*;
 import	java.io.*;
 import	javax.swing.filechooser.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
 
 
 /**
@@ -145,9 +149,9 @@ public class Puzzle extends JFrame implements MouseListener
 
 	// This version allows searching through a file system - cannot be used in a Jar
 
-	private String getFileName()
+	/*private String getFileName()
 	{
-		File		current = new File("D:\\Sample(1) - Copy\\image_puzzle");
+		File		current = new File("./image_puzzle/");
 		JFileChooser	fc = new JFileChooser(current);
 
 		fc.setAccessory(new ImagePreview(fc));
@@ -176,27 +180,62 @@ public class Puzzle extends JFrame implements MouseListener
 			;
 
 		return fc.getSelectedFile().getPath();
-	}
-
+	}*/
 
 
 	// This version assumes that the images are in an "images" sub-folder - can be used in a Jar
+	private String getFileName() {
+		// Create a JFileChooser without any starting directory
+		JFileChooser fc = new JFileChooser();
 
-	/*private String getFileName()
-	{
-		String[] imageList = {"mini-v27.jpg"};
-		JList<String> chooser = new JList<String>(imageList);	// Java 7 and later
-		chooser.setVisibleRowCount(4);
+		// Add file filter for image files
+		fc.addChoosableFileFilter(new javax.swing.filechooser.FileFilter() {
+			public boolean accept(java.io.File f) {
+				if (f.isDirectory()) return true;
+				String name = f.getName().toLowerCase();
+				return name.endsWith("gif") || name.endsWith(".jpg") || name.endsWith("png") || name.endsWith("tif");
+			}
 
-		Object[] message = new Object[3];
-		message[0] = new ImagePreview(chooser, Puzzle.class);
-		message[1] = "Select Puzzle Image";
-		message[2] = new JScrollPane(chooser);
+			public String getDescription() {
+				return "Image files";
+			}
+		});
 
-		JOptionPane.showMessageDialog(this, message, "Image Selector", JOptionPane.QUESTION_MESSAGE);
+		// Show open dialog and wait for user selection
+		while (fc.showOpenDialog(null) != JFileChooser.APPROVE_OPTION)
+			;
 
-		return "Scene/img/" + (String)chooser.getSelectedValue();
-	}*/
+		// Get the selected file
+		java.io.File selectedFile = fc.getSelectedFile();
+		if (selectedFile != null) {
+			// Check if the selected file is within a JAR
+			if (selectedFile.getAbsolutePath().contains(".jar!")) {
+				// Get the path to the resource within the JAR
+				String resourcePath = "/image_puzzle/" + selectedFile.getName();
+				// Attempt to load the image as a resource stream
+				try (InputStream inputStream = getClass().getResourceAsStream(resourcePath)) {
+					if (inputStream != null) {
+						// Read the image from the input stream
+						BufferedImage image = ImageIO.read(inputStream);
+						// Display the image
+						ImageIcon icon = new ImageIcon(image);
+						JLabel label = new JLabel(icon);
+						JOptionPane.showMessageDialog(null, label);
+					} else {
+						JOptionPane.showMessageDialog(null, "Failed to load image from JAR.");
+					}
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, "Error loading image: " + e.getMessage());
+				}
+			} else {
+				// If the file is not within a JAR, return the file path
+				return selectedFile.getAbsolutePath();
+			}
+		}
+		return null;
+	}
+
+
 
 
 

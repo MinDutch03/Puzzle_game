@@ -6,14 +6,14 @@
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="Sample" />
-      <element id="extracted-dir" path="E:/javafx21/javafx-sdk-21.0.1/lib/javafx-swt.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="E:/javafx21/javafx-sdk-21.0.1/lib/javafx.web.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="E:/javafx21/javafx-sdk-21.0.1/lib/javafx.base.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="E:/javafx21/javafx-sdk-21.0.1/lib/javafx.fxml.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="E:/javafx21/javafx-sdk-21.0.1/lib/javafx.media.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="E:/javafx21/javafx-sdk-21.0.1/lib/javafx.swing.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="E:/javafx21/javafx-sdk-21.0.1/lib/javafx.controls.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="E:/javafx21/javafx-sdk-21.0.1/lib/javafx.graphics.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Program Files/Java/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Program Files/Java/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Program Files/Java/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Program Files/Java/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Program Files/Java/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Program Files/Java/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Program Files/Java/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="C:/Program Files/Java/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib/javafx.graphics.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
