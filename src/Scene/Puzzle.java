@@ -149,7 +149,7 @@ public class Puzzle extends JFrame implements MouseListener
 
 	// This version allows searching through a file system - cannot be used in a Jar
 
-	private String getFileName()
+	/*private String getFileName()
 	{
 		File		current = new File("./image_puzzle/");
 		JFileChooser	fc = new JFileChooser(current);
@@ -180,11 +180,11 @@ public class Puzzle extends JFrame implements MouseListener
 			;
 
 		return fc.getSelectedFile().getPath();
-	}
+	}*/
 
 
 	// This version assumes that the images are in an "images" sub-folder - can be used in a Jar
-	/*private String getFileName() {
+	private String getFileName() {
 		// Create a JFileChooser without any starting directory
 		JFileChooser fc = new JFileChooser();
 
@@ -233,8 +233,7 @@ public class Puzzle extends JFrame implements MouseListener
 			}
 		}
 		return null;
-	}*/
-
+	}
 
 
 	// called by "Play" button event handler.  Scrambles the puzzle pieces
