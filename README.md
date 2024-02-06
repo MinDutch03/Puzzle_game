@@ -24,9 +24,8 @@ git clone https://github.com/MinDutch03/Puzzle_game.git
 * Path Configuration: You can see instructions on many IDEs here: https://openjfx.io/openjfx-docs/#introduction 
 
 ### Executing program
-* Step 1: Locate to "./src/output/"
-* Step 2: Edit Path Configuration.
-* Step 3: Press "Run" button to run .jar file.
+* Step 1: Download .exe file
+* Step 2: Open .exe file and play.
 
 ## Authors
 * Duc Nguyen Minh, nguyenminhduc890@gmail.com
