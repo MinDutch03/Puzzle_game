@@ -1,4 +1,4 @@
-# Edge-Cutting Puzzle Game
+# ETPuzzle
 
 
 ## Description
