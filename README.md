@@ -6,7 +6,7 @@
 A Children-Puzzle Game
 
 ## How to play
-You can swap or rotate any pieces to match the original puzzle picture.
+You can swap or rotate any pieces to match the original puzzle picture. Click any two pieces to swap their positions. Double click on a piece to rotate it. The goal is to reassemble the pieces into the original picture.
 
 ## Getting Started
 
