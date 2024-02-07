@@ -234,7 +234,7 @@ public class Puzzle extends JFrame implements MouseListener
 		}
 		return null;
 	}
-	
+
 	// called by "Play" button event handler.  Scrambles the puzzle pieces
 
 	private void mixUp(ActionEvent e)
